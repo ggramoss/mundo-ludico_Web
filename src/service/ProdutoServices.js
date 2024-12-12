@@ -4,34 +4,39 @@ const BASE_URL = "http://localhost:1337/api/products";
 
 async function listarProdutos() {
     const response = await axios.get(BASE_URL);
-    // Retorna os produtos e os metadados de paginação
+    
     return {
-        produtos: response.data.data, // Array de produtos
-        meta: response.data.meta, // Metadados de paginação
+        produtos: response.data.data, 
+        
     };
 }
 
 async function inserirProduto(produto) {
     const response = await axios.post(BASE_URL, {
-        data: produto, // Envia os dados no formato esperado pelo Strapi
+        data: produto, 
     });
     return response.data;
 }
 
-async function buscarProduto(id) {
-    const response = await axios.get(`${BASE_URL}/${id}`);
-    return response.data.data; // Retorna apenas os dados do produto
-}
+const buscarProduto = async (documentId) => {
+    try {
+        const response = await axios.get(BASE_URL+"/"+documentId);
+        return response.data;
+    } catch (error) {
+        console.error("Erro ao buscar produto", error);
+        throw error;
+    }
+};
 
-async function atualizarProduto(id, produto) {
-    const response = await axios.put(`${BASE_URL}/${id}`, {
-        data: produto, // Envia os dados no formato esperado pelo Strapi
+async function atualizarProduto(documentId, produto) {
+    const response = await axios.put(BASE_URL+"/"+documentId, {
+        data: produto, 
     });
     return response.data;
 }
 
-async function deletarProduto(id) {
-    const response = await axios.delete(`${BASE_URL}/${id}`);
+async function deletarProduto(documentId) {
+    const response = await axios.delete(`${BASE_URL}/${documentId}`);
     return response.data;
 }
 

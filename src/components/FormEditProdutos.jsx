@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { redirect, useNavigate, useParams } from "react-router-dom";
 import ProdutoService from "../service/ProdutoServices"; // Certifique-se de que o ProdutoService está implementado.
 
 export default function FormEditProdutos() {
-    const { id } = useParams();
+    const {documentId} = useParams();
     const navigate = useNavigate();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -11,32 +11,35 @@ export default function FormEditProdutos() {
     const [quantity, setQuantity] = useState(0);
 
     useEffect(() => {
-        ProdutoService.buscarProduto(id).then((produto) => {
+        ProdutoService.buscarProduto(documentId).then((produto) => {
             console.log("Produto", produto);
             setName(produto.Name);
             setDescription(produto.Description);
             setPrice(parseFloat(produto.Price));
             setQuantity(produto.Quantity);
         });
-    }, [id]);
+    }, [documentId]);
 
     const editarProduto = (event) => {
         event.preventDefault();
-        ProdutoService.atualizarProduto(id, {
-            Name: name,
-            Description: description,
-            Price: parseFloat(price),
-            Quantity: parseInt(quantity),
+        // ... (rest of the code)
+      
+        // Assuming documentId is available from ProdutoService.buscarProduto
+        ProdutoService.atualizarProduto(documentId, {
+          Name: name,
+          Description: description,
+          Price: parseFloat(price),
+          Quantity: parseInt(quantity),
         }).then((produto) => {
-            alert("Produto atualizado com sucesso!");
-            console.log("Produto", produto);
-            navigate(-1); // Voltar para a página anterior após a atualização.
+          // ... (rest of the code)
         });
-    };
-
+      };
     const voltar = () => {
         navigate(-1);
     };
+    const redireciona = ()=>{
+        redirect(-1);
+    }
 
     return (
         <form onSubmit={editarProduto}>
@@ -71,7 +74,7 @@ export default function FormEditProdutos() {
                 onChange={(ev) => setQuantity(ev.target.value)}
             />
             <br />
-            <input type="submit" value="Salvar" />
+            <input type="submit" value="Salvar" onClick={redireciona} />
             <input type="button" value="Voltar" onClick={voltar} />
         </form>
     );

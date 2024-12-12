@@ -26,8 +26,8 @@ function App() {
 
       <footer className="w3-container w3-margin-top w3-black">
         <p className="w3-center">
-          Realizado por [Seu Nome] (imagens retiradas de [fonte das imagens])
-        </p>
+          Realizado por Gerson Ramos 
+                  </p>
       </footer>
     </>
   );

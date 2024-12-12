@@ -10,9 +10,9 @@ export default function Router() {
     <Routes>
       <Route path="/" element={<App />}>
         <Route index element={<Home />} />
-        <Route path="lista" element={<ListCardProdutos />} />
+        <Route path="produtos" element={<ListCardProdutos />} />
         <Route path="cadastro" element={<FormProdutos />} />
-        <Route path="editar/:id" element={<FormEditProdutos />} />
+        <Route path="/edit/:documentId" element={<FormEditProdutos />} />
       </Route>
     </Routes>
   );
